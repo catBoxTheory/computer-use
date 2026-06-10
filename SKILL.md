@@ -1,16 +1,16 @@
 ---
 name: computer-use
-description: Control the desktop using AI vision. Takes screenshots, analyzes them with the Mimo v2.5 model, and executes mouse/keyboard actions. Use when the user asks to click on something, type text, open apps, navigate UIs, automate desktop tasks, or control their computer with AI. Trigger on "computer use", "control my screen", "click on", "automate desktop", "open app", "do X on my computer", or any request to interact with the desktop GUI.
+description: Control the desktop using AI vision. Takes screenshots, analyzes them with a multi-modal vision model, and executes mouse/keyboard actions. Use when the user asks to click on something, type text, open apps, navigate UIs, automate desktop tasks, or control their computer with AI. Trigger on "computer use", "control my screen", "click on", "automate desktop", "open app", "do X on my computer", or any request to interact with the desktop GUI.
 ---
 
 # Computer-Use Skill
 
-AI-powered desktop control using the Mimo v2.5 vision model. Takes screenshots of the user's screen, analyzes them to understand the UI, and executes mouse/keyboard actions to accomplish tasks.
+AI-powered desktop control using a multi-modal vision model. Takes screenshots of the user's screen, analyzes them to understand the UI, and executes mouse/keyboard actions to accomplish tasks.
 
 ## How It Works
 
 1. Takes a screenshot using macOS `screencapture`
-2. Sends the screenshot to the Mimo API (mimo-v2.5 vision model)
+2. Sends the screenshot to a multi-modal vision API (OpenAI-compatible)
 3. The AI analyzes the screen and outputs actions (CLICK, TYPE, KEY, SCROLL)
 4. Actions are executed using pyautogui with automatic Retina coordinate scaling
 
@@ -18,7 +18,7 @@ AI-powered desktop control using the Mimo v2.5 vision model. Takes screenshots o
 
 - macOS with Python 3.10+
 - Required packages: `pip3 install pyautogui Pillow openai`
-- Mimo API key (configured in the script)
+- API key for a multi-modal vision model (set via environment variables)
 
 ## Usage
 
@@ -71,17 +71,17 @@ python3 ~/.claude/skills/computer-use/scripts/computer-use.py "open Finder, go t
 
 ## Configuration
 
-The script uses these environment variables (or defaults):
+Set these environment variables before running:
 
 | Variable | Default | Description |
 |----------|---------|-------------|
-| `MIMO_API_KEY` | (hardcoded) | Your Mimo API key |
-| `MIMO_API_BASE` | `https://token-plan-sgp.xiaomimimo.com/v1` | API endpoint |
-| `MIMO_MODEL` | `mimo-v2.5` | Vision model name |
+| `API_KEY` | (required) | Your API key |
+| `API_BASE` | (required) | API endpoint URL (OpenAI-compatible) |
+| `MODEL` | (required) | Multi-modal vision model name |
 
 ## Limitations
 
 - macOS only (uses `screencapture` and `pyautogui`)
-- Requires the Mimo API to be accessible
+- Requires an OpenAI-compatible vision API to be accessible
 - Complex multi-step tasks may need multiple rounds of screenshot-analyze-act
 - The AI may not perfectly identify all UI elements

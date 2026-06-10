@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Computer-Use Skill
-AI-powered desktop control using Mimo v2.5 vision model.
+AI-powered desktop control using a multi-modal vision model.
 Takes screenshots, analyzes them, and executes mouse/keyboard actions.
 """
 import os
@@ -14,19 +14,23 @@ from openai import OpenAI
 from PIL import Image
 import pyautogui
 
-# Mimo API configuration — set these environment variables before running
-MIMO_API_KEY = os.environ.get("MIMO_API_KEY")
-MIMO_API_BASE = os.environ.get("MIMO_API_BASE", "https://token-plan-sgp.xiaomimimo.com/v1")
-MODEL = os.environ.get("MIMO_MODEL", "mimo-v2.5")
+# API configuration — set these environment variables before running
+API_KEY = os.environ.get("API_KEY")
+API_BASE = os.environ.get("API_BASE")
+MODEL = os.environ.get("MODEL")
 
-if not MIMO_API_KEY:
-    raise ValueError("MIMO_API_KEY environment variable is required. Export it before running.")
+if not API_KEY:
+    raise ValueError("API_KEY environment variable is required. Export it before running.")
+if not API_BASE:
+    raise ValueError("API_BASE environment variable is required. Export it before running.")
+if not MODEL:
+    raise ValueError("MODEL environment variable is required. Export it before running.")
 
 # Safety settings
 pyautogui.FAILSAFE = True  # Move mouse to corner to abort
 pyautogui.PAUSE = 0.3
 
-client = OpenAI(api_key=MIMO_API_KEY, base_url=MIMO_API_BASE)
+client = OpenAI(api_key=API_KEY, base_url=API_BASE)
 
 def take_screenshot():
     """Take a screenshot and return base64 encoded image."""

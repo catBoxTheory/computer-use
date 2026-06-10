@@ -1,15 +1,15 @@
 # Computer-Use
 
-AI-powered desktop control using the Mimo v2.5 vision model. Takes screenshots of your screen, analyzes them with AI, and executes mouse/keyboard actions to accomplish tasks.
+AI-powered desktop control using a multi-modal vision model. Takes screenshots of your screen, analyzes them with AI, and executes mouse/keyboard actions to accomplish tasks.
 
 ## How It Works
 
 ```
-Screenshot → Mimo AI Analyze → Execute Actions → Repeat
+Screenshot → AI Analyze → Execute Actions → Repeat
 ```
 
 1. Captures your screen using macOS `screencapture`
-2. Sends the screenshot to the Mimo v2.5 vision API
+2. Sends the screenshot to a multi-modal vision API
 3. The AI identifies UI elements and outputs actions (click, type, key press, scroll)
 4. Actions are executed with automatic Retina display coordinate scaling
 
@@ -17,7 +17,7 @@ Screenshot → Mimo AI Analyze → Execute Actions → Repeat
 
 - macOS (uses `screencapture` and `pyautogui`)
 - Python 3.10+
-- Mimo API key
+- API key for a multi-modal vision model (OpenAI-compatible endpoint)
 
 ## Installation
 
@@ -29,8 +29,9 @@ cd computer-use
 # Install dependencies
 pip3 install pyautogui Pillow openai
 
-# Set your API key
-export MIMO_API_KEY="your-api-key-here"
+# Set your API key and endpoint
+export API_KEY="your-api-key-here"
+export API_BASE="https://your-api-endpoint/v1"
 ```
 
 ## Usage
@@ -62,9 +63,9 @@ python3 scripts/computer-use.py "open Finder, go to Downloads, sort by date"
 
 | Variable | Default | Description |
 |----------|---------|-------------|
-| `MIMO_API_KEY` | (required) | Your Mimo API key |
-| `MIMO_API_BASE` | `https://token-plan-sgp.xiaomimimo.com/v1` | API endpoint URL |
-| `MIMO_MODEL` | `mimo-v2.5` | Vision model name |
+| `API_KEY` | (required) | Your API key |
+| `API_BASE` | (required) | API endpoint URL (OpenAI-compatible) |
+| `MODEL` | (required) | Multi-modal vision model name |
 
 ## Safety
 
@@ -76,7 +77,7 @@ python3 scripts/computer-use.py "open Finder, go to Downloads, sort by date"
 ## Limitations
 
 - macOS only
-- Requires the Mimo API to be accessible
+- Requires an OpenAI-compatible vision API to be accessible
 - Keyboard actions go to whatever app is currently focused
 - Complex multi-step tasks may need multiple rounds
 
